@@ -31,13 +31,17 @@ class Student
 	char* name;
 	const double step;// !!
 	Book book; //!!!
+	static int count;
 public:
+	
 	Student() :step(0), book(nullptr, 0)
 	{
+		
 		name = nullptr;
 	}
 	Student(const char* n, double st, const char* bookName, int bookPages):step(st),book(bookName,bookPages)
 	{
+		count++;
 		name = new char[strlen(n) + 1];
 		strcpy_s(name, strlen(n) + 1, n);
 
@@ -47,8 +51,13 @@ public:
 		delete[]name;
 	}
 	void Print();
+static int GetCount()
+	{
+		return count;
+	}
 
 };
+int Student::count = 0;
 void Student::Print()
 {
 	cout << "Имя студента: " << name << endl;
@@ -61,4 +70,7 @@ int main()
 	setlocale(LC_ALL, "ru");
 	Student first("Dima", 3, "Harry Potter", 540);
 	first.Print();
+	Student first1("Dima", 3, "Harry Potter", 540);
+	first1.Print();
+	cout <<"Количество студентов: "<< Student::GetCount();
 }
